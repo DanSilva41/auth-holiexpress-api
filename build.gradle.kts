@@ -1,6 +1,8 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
+group = "com.holiexpress.ecommerce.auth"
 version = "1.0.0-SNAPSHOT"
+
 plugins {
   java
   application
