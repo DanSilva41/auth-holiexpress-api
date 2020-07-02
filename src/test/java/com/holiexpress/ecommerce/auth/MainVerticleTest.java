@@ -21,11 +21,12 @@ class MainVerticleTest {
     vertx.deployVerticle(MainVerticle.class.getCanonicalName(), testContext.succeeding(id -> testContext.completeNow()));
   }
 
-//  @Test
+  @Test
   @DisplayName("Check that the server return hello Vert.x")
   void checkServerReturnHello(Vertx vertx, VertxTestContext testContext) {
     WebClient webClient = WebClient.create(vertx);
-    webClient.get(8280, "localhost", "/api/v1/hello")
+    webClient.get(8999, "localhost", "/api/v1/hello")
+      .putHeader("AUTH_TOKEN", "mysecretAuthToken")
       .as(BodyCodec.string())
       .send(testContext.succeeding(response -> testContext.verify(() -> {
         assertEquals(200, response.statusCode());
@@ -35,11 +36,12 @@ class MainVerticleTest {
       })));
   }
 
-//  @Test
+  @Test
   @DisplayName("Check that the server return hello by name")
   void checkServerReturnHelloByName(Vertx vertx, VertxTestContext testContext) {
     WebClient webClient = WebClient.create(vertx);
-    webClient.get(8280, "localhost", "/api/v1/hello/Dan")
+    webClient.get(8999, "localhost", "/api/v1/hello/Dan")
+      .putHeader("AUTH_TOKEN", "mysecretAuthToken")
       .as(BodyCodec.string())
       .send(testContext.succeeding(response -> testContext.verify(() -> {
         assertEquals(200, response.statusCode());
